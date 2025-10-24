@@ -1,0 +1,15 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prom
+  namespace: monitoring
+spec:
+  chart:
+    spec:
+      chart: ./helm/charts/kube-prometheus-stack
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: GitRepository
+        name: monitoring-deploy
+      version: '*'
+  interval: 10m0s
