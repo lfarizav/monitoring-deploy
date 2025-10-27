@@ -1,0 +1,20 @@
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  labels:
+    kustomize.toolkit.fluxcd.io/name: monitoring
+    kustomize.toolkit.fluxcd.io/namespace: monitoring
+  name: slack-notif
+  namespace: monitoring
+spec:
+  eventSeverity: info
+  eventSources:
+  - kind: GitRepository
+    name: '*'
+  - kind: Kustomization
+    name: '*'
+  - kind: HelmRelease
+    name: '*'
+  providerRef:
+    name: slack
+
