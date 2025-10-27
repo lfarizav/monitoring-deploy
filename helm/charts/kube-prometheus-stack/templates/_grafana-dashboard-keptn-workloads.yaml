@@ -637,6 +637,6 @@ kind: ConfigMap
 metadata:
   creationTimestamp: null
   name: grafana-dashboard-keptn-workloads-dora
-  #namespace: monitoring
+  namespace: monitoring
   labels:
     grafana_dashboard: "1"
