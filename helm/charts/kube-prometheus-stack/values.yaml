@@ -1382,7 +1382,7 @@ grafana:
         allowUiUpdates: false
     datasources:
       enabled: true
-      defaultDatasourceEnabled: true
+      defaultDatasourceEnabled: false #true
       isDefaultDatasource: true
 
       name: Prometheus
@@ -4391,6 +4391,10 @@ prometheus:
     ## port to 2379 and allow etcd scraping provided it is running on all Kubernetes master nodes
     ##
     additionalScrapeConfigs: []
+      - job_name: "scrape_klt"
+        scrape_interval: 5s
+        static_configs:
+          - targets: ['lifecycle-operator-metrics-service.keptn-system.svc.cluster.local:2222']
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
     #     - role: node
