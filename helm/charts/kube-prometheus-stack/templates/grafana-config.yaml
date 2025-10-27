@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/part-of: kube-prometheus
     app.kubernetes.io/version: 9.1.7
   name: grafana-config
-  namespace: monitoring
+  #namespace: monitoring
 stringData:
   grafana.ini: |
     [date_formats]

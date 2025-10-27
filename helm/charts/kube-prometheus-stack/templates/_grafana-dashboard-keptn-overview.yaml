@@ -889,6 +889,6 @@ kind: ConfigMap
 metadata:
   creationTimestamp: null
   name: grafana-dashboard-keptn-overview
-  namespace: monitoring
+  #namespace: monitoring
   labels:
     grafana_dashboard: "1"
