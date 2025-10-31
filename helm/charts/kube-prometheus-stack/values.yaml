@@ -1382,7 +1382,7 @@ grafana:
         allowUiUpdates: false
     datasources:
       enabled: true
-      defaultDatasourceEnabled: true #true
+      defaultDatasourceEnabled: false #true
       isDefaultDatasource: true
 
       name: Prometheus
