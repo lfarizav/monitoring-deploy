@@ -5,6 +5,5 @@ resources:
 - monitoring-helmrelease.yaml
 - monitoring-gitrepository.yaml
 - slack-notif-alert.yaml
-- slack-provider.yaml
 
 

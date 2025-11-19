@@ -4,6 +4,8 @@ metadata:
   name: prom
   namespace: monitoring
 spec:
+  interval: 10m0s
+  timeout: 10m0s
   chart:
     spec:
       chart: ./helm/charts/kube-prometheus-stack
@@ -12,4 +14,23 @@ spec:
         kind: GitRepository
         name: monitoring-deploy
       version: '*'
-  interval: 10m0s
+  install:
+    timeout: 10m0s
+    remediation:
+      retries: 3
+    crds: CreateReplace
+  upgrade:
+    timeout: 10m0s
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    crds: CreateReplace
+    cleanupOnFail: true
+  uninstall:
+    timeout: 5m
+  driftDetection:
+    mode: enabled
+    ignore:
+      - paths: ["/spec/replicas"]
+        target:
+          kind: Deployment
