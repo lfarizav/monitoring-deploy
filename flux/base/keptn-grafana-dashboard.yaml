@@ -1,0 +1,51 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keptn-grafana-dashboard
+  namespace: monitoring
+  labels:
+    grafana_dashboard: "1"
+data:
+  keptn-dashboard.json: |
+    {
+      "dashboard": {
+        "title": "Keptn Lifecycle Metrics",
+        "tags": ["keptn", "lifecycle"],
+        "timezone": "browser",
+        "panels": [
+          {
+            "title": "Deployment Duration",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "keptn_deployment_duration_seconds",
+                "legendFormat": "{{app}}.{{version}}"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}
+          },
+          {
+            "title": "App Count",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "keptn_app_count"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}
+          },
+          {
+            "title": "Deployment Status",
+            "type": "table",
+            "targets": [
+              {
+                "expr": "keptn_deployment_active",
+                "format": "table"
+              }
+            ],
+            "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8}
+          }
+        ]
+      }
+    }

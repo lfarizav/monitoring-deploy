@@ -4,6 +4,7 @@ resources:
 - monitoring-alert.yaml
 - monitoring-helmrelease.yaml
 - monitoring-gitrepository.yaml
+- grafana-datasource-jaeger.yaml
 - slack-provider.yaml
 - slack-notif-alert.yaml
 
