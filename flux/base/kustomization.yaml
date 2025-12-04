@@ -7,5 +7,6 @@ resources:
 - grafana-datasource-jaeger.yaml
 - slack-provider.yaml
 - slack-notif-alert.yaml
+- grafana-dashboard-networkpolicies.yaml
 
 
