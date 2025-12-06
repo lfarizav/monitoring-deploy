@@ -690,15 +690,18 @@ data:
           "id": 7,
           "options": {
             "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
+              "calcs": ["first", "last"],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
             },
+            "rowHeight": 0.9,
+            "showValue": "never",
             "tooltip": {
-              "mode": "multi"
+              "mode": "single"
             }
           },
-          "pluginVersion": "8.0.0",
+          "pluginVersion": "11.3.0",
           "targets": [
             {
               "expr": "sum by (pod) (kube_pod_status_phase{namespace=\"k8s-open5gs\", phase=\"Running\"} == 1)",
@@ -708,8 +711,8 @@ data:
             }
           ],
           "timeFrom": "10m",
-          "title": "Pod Running State Timeline",
-          "type": "timeseries"
+          "title": "Pod Deployment Progression Timeline",
+          "type": "state-timeline"
         }
       ],
       "refresh": "10s",
