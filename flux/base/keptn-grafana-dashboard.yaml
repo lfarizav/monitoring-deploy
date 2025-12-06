@@ -689,28 +689,25 @@ data:
           },
           "id": 7,
           "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": false,
+                "displayName": "Created At (Unix Timestamp)"
+              }
+            ]
           },
           "pluginVersion": "11.3.0",
           "targets": [
             {
-              "expr": "sort_desc(kube_pod_created{namespace=\"k8s-open5gs\"})",
+              "expr": "kube_pod_created{namespace=\"k8s-open5gs\"}",
               "format": "table",
               "instant": true,
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "title": "Pod Deployment Order (by Creation Time)",
+          "title": "Pod Deployment Order (Oldest First)",
           "transformations": [
             {
               "id": "organize",
@@ -720,13 +717,33 @@ data:
                   "namespace": true,
                   "job": true,
                   "instance": true,
-                  "__name__": true
+                  "__name__": true,
+                  "uid": true,
+                  "created_by_kind": true,
+                  "created_by_name": true,
+                  "node": true,
+                  "host_ip": true,
+                  "host_network": true,
+                  "pod_ip": true,
+                  "priority_class": true
                 },
                 "indexByName": {},
                 "renameByName": {
                   "pod": "Pod Name",
                   "Value": "Created At (Unix Timestamp)"
                 }
+              }
+            },
+            {
+              "id": "convertFieldType",
+              "options": {
+                "conversions": [
+                  {
+                    "destinationType": "time",
+                    "targetField": "Created At (Unix Timestamp)"
+                  }
+                ],
+                "fields": {}
               }
             }
           ],
