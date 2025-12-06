@@ -188,6 +188,110 @@ data:
           "fieldConfig": {
             "defaults": {
               "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Status"
+                },
+                "properties": [
+                  {
+                    "id": "custom.displayMode",
+                    "value": "color-background"
+                  },
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "options": {
+                          "0": {
+                            "color": "green",
+                            "index": 0,
+                            "text": "Passed"
+                          },
+                          "1": {
+                            "color": "red",
+                            "index": 1,
+                            "text": "Failed"
+                          }
+                        },
+                        "type": "value"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 8
+          },
+          "id": 8,
+          "options": {
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.0.0",
+          "targets": [
+            {
+              "expr": "kube_job_status_failed{namespace=\"k8s-open5gs\", job_name=~\".*validation.*\"} == 1",
+              "format": "table",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Pre-Deployment Failed Checks",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "__name__": true,
+                  "instance": true,
+                  "namespace": true,
+                  "pod": true,
+                  "uid": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "job_name": "Validation Check",
+                  "Value": "Status"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": "Prometheus",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
                 "mode": "palette-classic"
               },
               "custom": {
@@ -264,7 +368,7 @@ data:
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 8
+            "y": 16
           },
           "id": 3,
           "options": {
@@ -360,7 +464,7 @@ data:
             "h": 10,
             "w": 24,
             "x": 0,
-            "y": 16
+            "y": 24
           },
           "id": 4,
           "options": {
@@ -449,7 +553,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 26
+            "y": 34
           },
           "id": 5,
           "options": {
@@ -506,7 +610,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 26
+            "y": 34
           },
           "id": 6,
           "options": {
@@ -581,7 +685,7 @@ data:
             "h": 10,
             "w": 24,
             "x": 0,
-            "y": 34
+            "y": 42
           },
           "id": 7,
           "options": {
