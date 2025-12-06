@@ -724,7 +724,7 @@ data:
       },
       "timepicker": {},
       "timezone": "browser",
-      "title": "Keptn Lifecycle & Validation Report",
+      "title": "Keptn Lifecycle - Task Execution & Metrics",
       "uid": "keptn-lifecycle-validation",
       "version": 1
     }
