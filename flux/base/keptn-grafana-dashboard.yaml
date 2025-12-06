@@ -690,29 +690,47 @@ data:
           "id": 7,
           "options": {
             "legend": {
-              "calcs": ["first", "last"],
-              "displayMode": "table",
-              "placement": "right",
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
               "showLegend": true
             },
-            "rowHeight": 0.9,
-            "showValue": "never",
             "tooltip": {
-              "mode": "single"
+              "mode": "single",
+              "sort": "none"
             }
           },
           "pluginVersion": "11.3.0",
           "targets": [
             {
-              "expr": "sum by (pod) (kube_pod_status_phase{namespace=\"k8s-open5gs\", phase=\"Running\"} == 1)",
-              "format": "time_series",
-              "legendFormat": "{{pod}}",
+              "expr": "sort_desc(kube_pod_created{namespace=\"k8s-open5gs\"})",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
               "refId": "A"
             }
           ],
-          "timeFrom": "10m",
-          "title": "Pod Deployment Progression Timeline",
-          "type": "state-timeline"
+          "title": "Pod Deployment Order (by Creation Time)",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "namespace": true,
+                  "job": true,
+                  "instance": true,
+                  "__name__": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "pod": "Pod Name",
+                  "Value": "Created At (Unix Timestamp)"
+                }
+              }
+            }
+          ],
+          "type": "table"
         }
       ],
       "refresh": "10s",
