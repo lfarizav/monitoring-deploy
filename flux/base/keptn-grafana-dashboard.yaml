@@ -95,17 +95,17 @@ data:
           "targets": [
             {
               "expr": "histogram_quantile(0.99, sum(rate(keptn_task_duration_bucket[5m])) by (le, task_name))",
-              "legendFormat": "{{task_name}} (p99)",
+              "legendFormat": "p99 - {{task_name}}",
               "refId": "A"
             },
             {
               "expr": "histogram_quantile(0.95, sum(rate(keptn_task_duration_bucket[5m])) by (le, task_name))",
-              "legendFormat": "{{task_name}} (p95)",
+              "legendFormat": "p95 - {{task_name}}",
               "refId": "B"
             },
             {
               "expr": "histogram_quantile(0.50, sum(rate(keptn_task_duration_bucket[5m])) by (le, task_name))",
-              "legendFormat": "{{task_name}} (p50)",
+              "legendFormat": "p50 - {{task_name}}",
               "refId": "C"
             }
           ],
