@@ -707,6 +707,7 @@ data:
               "refId": "A"
             }
           ],
+          "timeFrom": "10m",
           "title": "Pod Running State Timeline",
           "type": "timeseries"
         }
