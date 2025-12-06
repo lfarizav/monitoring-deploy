@@ -693,7 +693,7 @@ data:
             "sortBy": [
               {
                 "desc": false,
-                "displayName": "Created At (Unix Timestamp)"
+                "displayName": "Created At"
               }
             ]
           },
@@ -707,7 +707,7 @@ data:
               "refId": "A"
             }
           ],
-          "title": "Pod Deployment Order (Oldest First)",
+          "title": "Pod Deployment Order (1st at Top)",
           "transformations": [
             {
               "id": "organize",
@@ -730,7 +730,7 @@ data:
                 "indexByName": {},
                 "renameByName": {
                   "pod": "Pod Name",
-                  "Value": "Created At"
+                  "Value": "Created At (timestamp)"
                 }
               }
             },
@@ -740,7 +740,7 @@ data:
                 "fields": {},
                 "sort": [
                   {
-                    "field": "Created At"
+                    "field": "Created At (timestamp)"
                   }
                 ]
               }
@@ -751,29 +751,19 @@ data:
                 "conversions": [
                   {
                     "destinationType": "time",
-                    "targetField": "Created At"
+                    "targetField": "Created At (timestamp)"
                   }
                 ],
                 "fields": {}
               }
             },
             {
-              "id": "addRowIndex",
-              "options": {
-                "startIndex": 1
-              }
-            },
-            {
               "id": "organize",
               "options": {
                 "excludeByName": {},
-                "indexByName": {
-                  "Row": 0,
-                  "Pod Name": 1,
-                  "Created At": 2
-                },
+                "indexByName": {},
                 "renameByName": {
-                  "Row": "Deploy Order"
+                  "Created At (timestamp)": "Created At"
                 }
               }
             }
