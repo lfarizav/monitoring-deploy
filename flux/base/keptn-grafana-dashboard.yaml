@@ -730,8 +730,19 @@ data:
                 "indexByName": {},
                 "renameByName": {
                   "pod": "Pod Name",
-                  "Value": "Created At (Unix Timestamp)"
+                  "Value": "Created At"
                 }
+              }
+            },
+            {
+              "id": "sortBy",
+              "options": {
+                "fields": {},
+                "sort": [
+                  {
+                    "field": "Created At"
+                  }
+                ]
               }
             },
             {
@@ -740,10 +751,30 @@ data:
                 "conversions": [
                   {
                     "destinationType": "time",
-                    "targetField": "Created At (Unix Timestamp)"
+                    "targetField": "Created At"
                   }
                 ],
                 "fields": {}
+              }
+            },
+            {
+              "id": "addRowIndex",
+              "options": {
+                "startIndex": 1
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {
+                  "Row": 0,
+                  "Pod Name": 1,
+                  "Created At": 2
+                },
+                "renameByName": {
+                  "Row": "Deploy Order"
+                }
               }
             }
           ],
