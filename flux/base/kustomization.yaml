@@ -8,6 +8,5 @@ resources:
 - slack-provider.yaml
 - slack-notif-alert.yaml
 - grafana-dashboard-networkpolicies.yaml
-- keptn-grafana-dashboard.yaml
 
 
