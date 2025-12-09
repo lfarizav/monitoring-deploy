@@ -1,0 +1,22 @@
+{{- if .Values.cloudflare.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "kube-prometheus-stack.fullname" . }}-cloudflare-config
+  namespace: {{ template "kube-prometheus-stack.namespace" . }}
+  labels:
+    app: cloudflared
+    {{- include "kube-prometheus-stack.labels" . | nindent 4 }}
+data:
+  config.yaml: |
+    tunnel: {{ .Values.cloudflare.tunnelID }}
+    credentials-file: /etc/cloudflared/credentials.json
+
+    ingress:
+      {{- range .Values.cloudflare.tunnelIngress }}
+      - hostname: {{ .hostname }}
+        service: {{ .service }}
+      {{- end }}
+      # Catch-all rule to prevent random requests
+      - service: http_status:404
+{{- end }}

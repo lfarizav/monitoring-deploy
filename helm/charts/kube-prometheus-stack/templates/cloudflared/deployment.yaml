@@ -1,0 +1,63 @@
+{{- if .Values.cloudflare.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "kube-prometheus-stack.fullname" . }}-cloudflared
+  namespace: {{ template "kube-prometheus-stack.namespace" . }}
+  labels:
+    app: cloudflared
+    app.kubernetes.io/name: cloudflared
+    app.kubernetes.io/component: ingress
+    {{- include "kube-prometheus-stack.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.cloudflare.replicas }}
+  selector:
+    matchLabels:
+      app: cloudflared
+  template:
+    metadata:
+      labels:
+        app: cloudflared
+        app.kubernetes.io/name: cloudflared
+        app.kubernetes.io/component: ingress
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/cloudflared/configmap.yaml") . | sha256sum }}
+    spec:
+      {{- if .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml .Values.global.imagePullSecrets | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: cloudflared
+        image: {{ .Values.cloudflare.image.repository }}:{{ .Values.cloudflare.image.tag }}
+        imagePullPolicy: {{ .Values.cloudflare.image.pullPolicy }}
+        args:
+        - tunnel
+        - --config
+        - /etc/cloudflared/config.yaml
+        - run
+        env:
+        - name: TUNNEL_ID
+          value: {{ .Values.cloudflare.tunnelID | quote }}
+        volumeMounts:
+        - name: cloudflare-config
+          mountPath: /etc/cloudflared/config.yaml
+          subPath: config.yaml
+          readOnly: true
+        - name: cloudflare-credentials
+          mountPath: /etc/cloudflared/credentials.json
+          subPath: credentials.json
+          readOnly: true
+        resources:
+          {{- toYaml .Values.cloudflare.resources | nindent 10 }}
+      volumes:
+      - name: cloudflare-config
+        configMap:
+          name: {{ include "kube-prometheus-stack.fullname" . }}-cloudflare-config
+      - name: cloudflare-credentials
+        secret:
+          secretName: {{ .Values.cloudflare.credentialsSecretName }}
+          items:
+          - key: credentials.json
+            path: credentials.json
+{{- end }}

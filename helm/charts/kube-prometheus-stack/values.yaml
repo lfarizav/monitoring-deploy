@@ -5460,3 +5460,34 @@ extraManifests: null
   #   data:
   #     plaintext: Zm9vYmFy
   #     templated: '{{ print "foobar" | upper | b64enc }}'
+
+# Cloudflare Tunnel Configuration for Grafana
+cloudflare:
+  enabled: true  # Set to true to enable Cloudflare tunnel
+  tunnelName: "grafana"  # Your Cloudflare tunnel name
+  tunnelID: "c24e5241-becf-4e2b-ae3b-7cf47a4f5d0e"  # Your Cloudflare tunnel ID from cloudflared tunnel create grafana
+  credentialsSecretName: "cloudflare-tunnel-credentials-grafana"  # Kubernetes secret with credentials.json
+  
+  image:
+    repository: cloudflare/cloudflared
+    tag: latest
+    pullPolicy: Always
+  
+  replicas: 1
+  
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+  
+  # Cloudflare tunnel routing rules
+  tunnelIngress:
+    - hostname: grafana.beanters.com
+      service: http://prom-grafana.monitoring.svc.cluster.local:80
+    
+    # Add more hostnames as needed
+    # - hostname: prometheus.beanters.com
+    #   service: http://prom-kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
