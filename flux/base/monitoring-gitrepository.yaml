@@ -8,4 +8,4 @@ spec:
   ref:
     branch: main
   timeout: 1m0s
-  url: https://github.com/lfarizav/monitoring-deploy.git
+  url: https://github.com/Cuemby/monitoring-deploy.git

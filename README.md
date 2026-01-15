@@ -172,7 +172,7 @@ Prometheus Server
 
 This tenant is managed by the fleet repository. Ensure:
 
-1. **Fleet repo** is bootstrapped: [k8s-open5gs-fleet](https://github.com/lfarizav/k8s-open5gs-fleet)
+1. **Fleet repo** is bootstrapped: [k8s-open5gs-fleet](https://github.com/Cuemby/k8s-open5gs-fleet)
 2. **Namespace** `monitoring` exists
 3. **RBAC** is configured
 4. **GitRepository** resource points to this repo
@@ -928,7 +928,7 @@ spec:
 
 ## 📞 Support
 
-- 📧 Issues: [GitHub Issues](https://github.com/lfarizav/monitoring-deploy/issues)
+- 📧 Issues: [GitHub Issues](https://github.com/Cuemby/monitoring-deploy/issues)
 - 📖 Prometheus Docs: [https://prometheus.io/docs/](https://prometheus.io/docs/)
 - 📖 Grafana Docs: [https://grafana.com/docs/](https://grafana.com/docs/)
 - 💬 Kube Prometheus Stack: [https://github.com/prometheus-community/helm-charts](https://github.com/prometheus-community/helm-charts)
