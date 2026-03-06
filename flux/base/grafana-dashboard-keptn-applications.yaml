@@ -1,0 +1,473 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-keptn-applications
+  namespace: monitoring
+  labels:
+    grafana_dashboard: "1"
+data:
+  keptn-applications.json: |
+    {
+      "annotations": {
+        "list": [{
+          "builtIn": 1,
+          "datasource": {"type": "grafana", "uid": "-- Grafana --"},
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 1,
+      "id": null,
+      "links": [],
+      "liveNow": true,
+      "panels": [
+        {
+          "collapsed": false,
+          "gridPos": {"h": 1, "w": 24, "x": 0, "y": 0},
+          "id": 100,
+          "panels": [],
+          "title": "Application: $Application",
+          "type": "row"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "fieldConfig": {
+            "defaults": {
+              "color": {"fixedColor": "green", "mode": "fixed"},
+              "mappings": [],
+              "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]},
+              "unit": "short"
+            }
+          },
+          "gridPos": {"h": 7, "w": 3, "x": 0, "y": 1},
+          "id": 1,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "reduceOptions": {"calcs": ["sum"], "fields": "", "values": false},
+            "text": {"valueSize": 50},
+            "textMode": "auto"
+          },
+          "pluginVersion": "9.5.3",
+          "targets": [{
+            "datasource": {"type": "prometheus", "uid": "prometheus"},
+            "expr": "sum(keptn_app_count_total{keptn_deployment_app_status=\"Succeeded\", keptn_deployment_app_name=\"$Application\"})",
+            "legendFormat": "Succeeded",
+            "refId": "A"
+          }],
+          "title": "Succeeded",
+          "type": "stat"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "fieldConfig": {
+            "defaults": {
+              "color": {"mode": "thresholds"},
+              "mappings": [],
+              "thresholds": {
+                "mode": "percentage",
+                "steps": [
+                  {"color": "green", "value": null},
+                  {"color": "yellow", "value": 50},
+                  {"color": "red", "value": 80}
+                ]
+              },
+              "unit": "short"
+            }
+          },
+          "gridPos": {"h": 7, "w": 6, "x": 3, "y": 1},
+          "id": 2,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "9.5.3",
+          "targets": [{
+            "datasource": {"type": "prometheus", "uid": "prometheus"},
+            "expr": "max(keptn_app_active{keptn_deployment_app_name=\"$Application\"})",
+            "legendFormat": "Active",
+            "refId": "A"
+          }],
+          "title": "Active Deployments",
+          "type": "gauge"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "fieldConfig": {
+            "defaults": {
+              "color": {"fixedColor": "red", "mode": "fixed"},
+              "mappings": [],
+              "thresholds": {"mode": "absolute", "steps": [{"color": "red", "value": null}]},
+              "unit": "short"
+            }
+          },
+          "gridPos": {"h": 7, "w": 3, "x": 9, "y": 1},
+          "id": 3,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "reduceOptions": {"calcs": ["sum"], "fields": "", "values": false},
+            "text": {"valueSize": 50},
+            "textMode": "auto"
+          },
+          "pluginVersion": "9.5.3",
+          "targets": [{
+            "datasource": {"type": "prometheus", "uid": "prometheus"},
+            "expr": "sum(keptn_app_count_total{keptn_deployment_app_status=\"Failed\", keptn_deployment_app_name=\"$Application\"})",
+            "legendFormat": "Failed",
+            "refId": "A"
+          }],
+          "title": "Failed",
+          "type": "stat"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "fieldConfig": {
+            "defaults": {
+              "color": {"mode": "thresholds"},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {"color": "green", "value": null},
+                  {"color": "yellow", "value": 300},
+                  {"color": "red", "value": 600}
+                ]
+              },
+              "unit": "s"
+            }
+          },
+          "gridPos": {"h": 7, "w": 6, "x": 12, "y": 1},
+          "id": 4,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {"calcs": ["mean"], "fields": "", "values": false},
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "9.5.3",
+          "targets": [{
+            "datasource": {"type": "prometheus", "uid": "prometheus"},
+            "expr": "avg(keptn_app_deploymentduration{keptn_deployment_app_name=\"$Application\"})",
+            "legendFormat": "Avg Duration",
+            "refId": "A"
+          }],
+          "title": "Avg Deployment Duration",
+          "type": "gauge"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "fieldConfig": {
+            "defaults": {
+              "color": {"mode": "thresholds"},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {"color": "green", "value": null},
+                  {"color": "yellow", "value": 180},
+                  {"color": "red", "value": 300}
+                ]
+              },
+              "unit": "s"
+            }
+          },
+          "gridPos": {"h": 7, "w": 6, "x": 18, "y": 1},
+          "id": 5,
+          "options": {
+            "displayMode": "gradient",
+            "minVizHeight": 10,
+            "minVizWidth": 0,
+            "orientation": "horizontal",
+            "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+            "showUnfilled": true
+          },
+          "pluginVersion": "9.5.3",
+          "targets": [{
+            "datasource": {"type": "prometheus", "uid": "prometheus"},
+            "expr": "max by(keptn_deployment_app_version) (keptn_app_deploymentduration{keptn_deployment_app_name=\"$Application\"})",
+            "legendFormat": "v{{keptn_deployment_app_version}}",
+            "refId": "A"
+          }],
+          "title": "Deployment Duration by Version",
+          "type": "bargauge"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {"h": 1, "w": 24, "x": 0, "y": 8},
+          "id": 200,
+          "panels": [],
+          "title": "Performance Trends",
+          "type": "row"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "fieldConfig": {
+            "defaults": {
+              "color": {"mode": "palette-classic"},
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "opacity",
+                "hideFrom": {"legend": false, "tooltip": false, "viz": false},
+                "lineInterpolation": "smooth",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {"type": "linear"},
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {"group": "A", "mode": "none"},
+                "thresholdsStyle": {"mode": "off"}
+              },
+              "mappings": [],
+              "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]},
+              "unit": "short"
+            }
+          },
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 9},
+          "id": 6,
+          "options": {
+            "legend": {
+              "calcs": ["mean", "lastNotNull", "max"],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {"mode": "multi", "sort": "desc"}
+          },
+          "targets": [{
+            "datasource": {"type": "prometheus", "uid": "prometheus"},
+            "expr": "max(keptn_app_active{keptn_deployment_app_name=\"$Application\"})",
+            "legendFormat": "Active",
+            "refId": "A"
+          }],
+          "title": "Deployments Active Over Time",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "fieldConfig": {
+            "defaults": {
+              "color": {"mode": "palette-classic"},
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "Duration",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "opacity",
+                "hideFrom": {"legend": false, "tooltip": false, "viz": false},
+                "lineInterpolation": "smooth",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {"type": "linear"},
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {"group": "A", "mode": "none"},
+                "thresholdsStyle": {"mode": "line"}
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {"color": "green", "value": null},
+                  {"color": "yellow", "value": 300},
+                  {"color": "red", "value": 600}
+                ]
+              },
+              "unit": "s"
+            }
+          },
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 9},
+          "id": 7,
+          "options": {
+            "legend": {
+              "calcs": ["mean", "lastNotNull", "max", "min"],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {"mode": "multi", "sort": "desc"}
+          },
+          "targets": [{
+            "datasource": {"type": "prometheus", "uid": "prometheus"},
+            "expr": "keptn_app_deploymentduration{keptn_deployment_app_name=\"$Application\"}",
+            "legendFormat": "v{{keptn_deployment_app_version}}",
+            "refId": "A"
+          }],
+          "title": "Deployment Duration by Version",
+          "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {"h": 1, "w": 24, "x": 0, "y": 17},
+          "id": 300,
+          "panels": [],
+          "title": "Workloads & Traces",
+          "type": "row"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "fieldConfig": {
+            "defaults": {
+              "color": {"mode": "thresholds"},
+              "custom": {
+                "align": "left",
+                "displayMode": "color-background",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {"mode": "absolute", "steps": [{"color": "blue", "value": null}]}
+            },
+            "overrides": [
+              {
+                "matcher": {"id": "byName", "options": "keptn_deployment_workload_name"},
+                "properties": [
+                  {"id": "displayName", "value": "Workload"},
+                  {"id": "custom.width", "value": 200}
+                ]
+              },
+              {
+                "matcher": {"id": "byName", "options": "keptn_deployment_workload_version"},
+                "properties": [
+                  {"id": "displayName", "value": "Version"},
+                  {"id": "custom.width", "value": 120}
+                ]
+              }
+            ]
+          },
+          "gridPos": {"h": 8, "w": 8, "x": 0, "y": 18},
+          "id": 8,
+          "options": {
+            "footer": {"fields": "", "reducer": ["sum"], "show": false},
+            "showHeader": true
+          },
+          "pluginVersion": "9.5.3",
+          "targets": [{
+            "datasource": {"type": "prometheus", "uid": "prometheus"},
+            "expr": "max(keptn_deployment_deploymentduration{keptn_deployment_app_name=\"$Application\"}) by (keptn_deployment_workload_name, keptn_deployment_workload_version)",
+            "format": "table",
+            "instant": true,
+            "refId": "A"
+          }],
+          "title": "Active Workloads",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "__name__": true,
+                  "Value": true,
+                  "instance": true,
+                  "job": true,
+                  "keptn_deployment_app_name": true,
+                  "keptn_deployment_app_namespace": true,
+                  "namespace": true,
+                  "pod": true,
+                  "service": true,
+                  "endpoint": true,
+                  "container": true
+                },
+                "indexByName": {},
+                "renameByName": {}
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {"type": "jaeger", "uid": "PC9A941E8F2E49454"},
+          "fieldConfig": {
+            "defaults": {
+              "color": {"mode": "thresholds"},
+              "custom": {
+                "align": "left",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}
+            }
+          },
+          "gridPos": {"h": 8, "w": 16, "x": 8, "y": 18},
+          "id": 9,
+          "type": "traces",
+          "datasource": {"type": "jaeger", "uid": "jaeger"},
+          "targets": [{
+            "datasource": {"type": "jaeger", "uid": "jaeger"},
+            "queryType": "search",
+            "refId": "A",
+            "service": "lifecycle-operator",
+            "limit": 20
+          }],
+          "title": "Deployment Traces",
+          "options": {
+            "spanBarOptions": {"type": "duration"},
+            "nodeWidth": 0.9
+          },
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "description": "Click on a trace to expand and see all deployment spans. Each trace shows pre-deployment, deployment, and post-deployment phases for all workloads."
+        },
+        {
+          "gridPos": {"h": 3, "w": 24, "x": 0, "y": 26},
+          "id": 10,
+          "type": "text",
+          "title": "View Full Trace Details in Jaeger",
+          "options": {
+            "mode": "markdown",
+            "content": "💡 **To view full trace details in Jaeger UI:**\n\n1. Run: `kubectl port-forward -n jaeger svc/jaeger-query 16686:16686`\n2. Open: http://localhost:16686\n3. Service: `lifecycle-operator`\n4. Click on a trace to see the complete span timeline with all workload deployments\n\n**Filter by app:** Add tag `keptn.deployment.app.name=open5gs`"
+          }
+        }
+      ],
+      "refresh": "10s",
+      "schemaVersion": 38,
+      "style": "dark",
+      "tags": ["keptn", "applications"],
+      "templating": {
+        "list": [{
+          "current": {"selected": false, "text": "", "value": ""},
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "definition": "label_values(keptn_deployment_app_name)",
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "Application",
+          "options": [],
+          "query": {"query": "label_values(keptn_deployment_app_name)", "refId": "StandardVariableQuery"},
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }]
+      },
+      "time": {"from": "now-6h", "to": "now"},
+      "timepicker": {},
+      "timezone": "",
+      "title": "Keptn Applications",
+      "uid": "keptn-applications",
+      "version": 1,
+      "weekStart": ""
+    }

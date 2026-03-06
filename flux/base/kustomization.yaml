@@ -4,9 +4,21 @@ resources:
 - monitoring-alert.yaml
 - monitoring-helmrelease.yaml
 - monitoring-gitrepository.yaml
+# Datasources
+- grafana-datasource-prometheus.yaml
 - grafana-datasource-jaeger.yaml
+# Alerting
 - slack-provider.yaml
 - slack-notif-alert.yaml
+# Dashboards — infrastructure
 - grafana-dashboard-networkpolicies.yaml
+# Dashboards — 5G core (migrated from keptn-deploy/5g branch)
+- grafana-dashboard-keptn-applications.yaml
+- grafana-dashboard-keptn-overview.yaml
+- grafana-dashboard-keptn-workloads.yaml
+# Dashboards — srsRAN gNB + 5G NF monitoring
+- grafana-dashboard-srsgnb.yaml
+# Dashboards — 5G lifecycle controller
+- grafana-dashboard-5g-lifecycle.yaml
 
 
