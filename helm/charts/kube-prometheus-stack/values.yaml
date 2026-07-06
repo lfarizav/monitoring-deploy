@@ -5463,7 +5463,7 @@ extraManifests: null
 
 # Cloudflare Tunnel Configuration for Grafana
 cloudflare:
-  enabled: true  # Set to true to enable Cloudflare tunnel
+  enabled: false  # Set to true to enable Cloudflare tunnel (requires cloudflare-tunnel-credentials-grafana secret)
   tunnelName: "grafana"  # Your Cloudflare tunnel name
   tunnelID: "c24e5241-becf-4e2b-ae3b-7cf47a4f5d0e"  # Your Cloudflare tunnel ID from cloudflared tunnel create grafana
   credentialsSecretName: "cloudflare-tunnel-credentials-grafana"  # Kubernetes secret with credentials.json
