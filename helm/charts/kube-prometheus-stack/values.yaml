@@ -5465,7 +5465,7 @@ extraManifests: null
 cloudflare:
   enabled: true  # Set to true to enable Cloudflare tunnel
   tunnelName: "grafana"  # Your Cloudflare tunnel name
-  tunnelID: "c24e5241-becf-4e2b-ae3b-7cf47a4f5d0e"  # Your Cloudflare tunnel ID from cloudflared tunnel create grafana
+  tunnelID: "eac1485e-6d72-436c-b4b7-e273dba54896"  # Your Cloudflare tunnel ID from cloudflared tunnel create grafana
   credentialsSecretName: "cloudflare-tunnel-credentials-grafana"  # Kubernetes secret with credentials.json
   
   image:
